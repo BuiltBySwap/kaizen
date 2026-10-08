@@ -1,0 +1,8 @@
+ktor:
+  deployment:
+    port: 8080
+  application:
+    modules:
+      - dev.builtbyswap.MonitoringKt.configureMonitoring
+      - dev.builtbyswap.SerializationKt.configureSerialization
+      - dev.builtbyswap.RoutingKt.configureRouting
