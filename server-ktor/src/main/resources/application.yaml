@@ -1,8 +1,9 @@
 ktor:
   deployment:
-    port: 8080
+    port: 8080 # the port Netty listens on
   application:
-    modules:
+    modules: # setup functions, run IN THIS ORDER at startup
       - dev.builtbyswap.MonitoringKt.configureMonitoring
       - dev.builtbyswap.SerializationKt.configureSerialization
+      - dev.builtbyswap.ValidationKt.configureValidation
       - dev.builtbyswap.RoutingKt.configureRouting

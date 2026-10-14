@@ -1,0 +1,38 @@
+### health
+GET http://localhost:8080/health
+
+### a plan day (200)
+GET http://localhost:8080/plan/2026-10-11
+
+### create progress (201)
+POST http://localhost:8080/progress
+Content-Type: application/json
+
+{ "date": "2026-10-15", "status": "done", "note": "BE-03 build" }
+
+### the same date again (409)
+POST http://localhost:8080/progress
+Content-Type: application/json
+
+{ "date": "2026-10-15", "status": "done" }
+
+### unknown status (422)
+POST http://localhost:8080/progress
+Content-Type: application/json
+
+{ "date": "2026-10-15", "status": "banana" }
+
+### broken JSON (400)
+POST http://localhost:8080/progress
+Content-Type: application/json
+
+{ "date":
+
+### not JSON at all (415)
+POST http://localhost:8080/progress
+Content-Type: text/plain
+
+hello
+
+### read it back (200)
+GET http://localhost:8080/progress/2026-10-15

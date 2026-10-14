@@ -1,8 +1,8 @@
 
 plugins {
-    alias(libs.plugins.kotlin.jvm)
-    alias(ktorLibs.plugins.ktor)
-    alias(libs.plugins.kotlin.serialization)
+    alias(libs.plugins.kotlin.jvm)                      // compile Kotlin to a JVM program
+    alias(libs.plugins.kotlin.serialization)     // the compiler plugin that makes @Serializable work
+    alias(ktorLibs.plugins.ktor)                            // Ktor's Gradle plugin (packaging, run tasks)
 }
 
 group = "dev.builtbyswap"
@@ -16,13 +16,15 @@ kotlin {
     jvmToolchain(21)
 }
 dependencies {
-    implementation(ktorLibs.serialization.kotlinx.json)
-    implementation(ktorLibs.server.callLogging)
     implementation(ktorLibs.server.config.yaml)
-    implementation(ktorLibs.server.contentNegotiation)
-    implementation(ktorLibs.server.core)
-    implementation(ktorLibs.server.netty)
-    implementation(libs.logback.classic)
+    implementation(ktorLibs.server.core)                // Application, call, routing
+    implementation(ktorLibs.server.netty)               // the engine: sockets and threads (BE-01)
+    implementation(ktorLibs.server.contentNegotiation)  // object <-> JSON conversion
+    implementation(ktorLibs.serialization.kotlinx.json) // the JSON format used with it
+    implementation(ktorLibs.server.callLogging)         // request logging
+    implementation(ktorLibs.server.requestValidation)   // rule checks on request bodies
+    implementation(ktorLibs.server.statusPages)         // exception -> response
+    implementation(libs.logback.classic)                // the logging backend
 
     testImplementation(kotlin("test"))
     testImplementation(ktorLibs.server.testHost)
