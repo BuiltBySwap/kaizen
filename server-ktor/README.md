@@ -47,6 +47,8 @@ Ktor server that serves the Kaizen learning plan (217 days) from a CSV seed.
 | GET /plan/today | 200 the plan day for today (IST) | 404 if today is not in the plan |
 | GET /plan/{date} (YYYY-MM-DD) | 200 the plan day | 400 bad date format, 404 no plan that day |
 | GET /questions/{n} | 200 the Mobile Exploration question | 400 not a number, 404 no such question |
+| POST /progress | 201 + the new progress and a Location header | 400 unreadable JSON or missing field, 409 date already exists, 415 not JSON, 422 a rule failed (status not allowed, bad date, note over 500 characters) |
+| GET /progress/{date} | 200 the progress | 404 none for that date |
 
 Every error has the same body: {"error": "message"}.
 
